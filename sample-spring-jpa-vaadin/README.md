@@ -16,8 +16,8 @@ A simple Spring project that demonstrates CRUD operations for a simple Employee 
 ### Maven
 
 ```
-git clone https://github.com/javi-more-garc/spring-samples/sample-spring-jpa-vaadin.git
-cd sample-spring-jpa-vaadin
+git clone https://github.com/javi-more-garc/spring-samples.git
+cd spring-samples/sample-spring-jpa-vaadin
 mvn spring-boot:run
 ```
 

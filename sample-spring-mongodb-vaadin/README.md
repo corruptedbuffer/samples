@@ -30,8 +30,8 @@ spring.data.mongodb.repositories.enabled=true
 ### Maven
 
 ```
-git clone https://github.com/javi-more-garc/spring-samples/sample-spring-mongodb-vaadin.git
-cd sample-spring-mongodb-vaadin
+git clone https://github.com/javi-more-garc/spring-samples.git
+cd samples-spring/sample-spring-mongodb-vaadin
 mvn spring-boot:run
 ```
 

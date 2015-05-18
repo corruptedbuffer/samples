@@ -14,6 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
  * @author Javier Moreno Garcia
  *
  */
+
 @Document(collection = "employees")
 public class Employee {
 

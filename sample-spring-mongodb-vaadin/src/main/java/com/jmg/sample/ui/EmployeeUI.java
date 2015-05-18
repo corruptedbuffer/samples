@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.vaadin.viritin.button.ConfirmButton;
 import org.vaadin.viritin.button.MButton;
 import org.vaadin.viritin.fields.MTable;
+import org.vaadin.viritin.fields.MTextField;
 import org.vaadin.viritin.fields.MValueChangeEvent;
 import org.vaadin.viritin.fields.MValueChangeListener;
 import org.vaadin.viritin.form.AbstractForm.ResetHandler;
@@ -14,16 +15,22 @@ import org.vaadin.viritin.form.AbstractForm.SavedHandler;
 import org.vaadin.viritin.layouts.MHorizontalLayout;
 import org.vaadin.viritin.layouts.MVerticalLayout;
 
+import com.google.common.collect.Lists;
 import com.jmg.sample.server.Employee;
 import com.jmg.sample.server.EmployeeRepository;
+import com.jmg.sample.server.QEmployee;
+import com.mysema.query.types.expr.BooleanExpression;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.event.FieldEvents.TextChangeEvent;
+import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
@@ -42,13 +49,12 @@ public class EmployeeUI extends UI {
 	@Inject
 	private EmployeeRepository repo;
 
+	private TextField txtfILTERByFirstname = new MTextField("Filter by firstname:");
+
 	private MTable<Employee> list = new MTable<>(Employee.class)
-			.withProperties("id", "firstname", "lastname", "birthDate",
-					"gender")
-			.withColumnHeaders("id", "First Name", "Last name", "Birthdate",
-					"Gender")
-			.setSortableProperties("firstname", "lastname", "birthDate",
-					"gender").withFullWidth();
+			.withProperties("id", "firstname", "lastname", "birthDate", "gender")
+			.withColumnHeaders("id", "First Name", "Last name", "Birthdate", "Gender")
+			.setSortableProperties("firstname", "lastname", "birthDate", "gender").withFullWidth();
 
 	private Button addNew = new MButton(FontAwesome.PLUS, new ClickListener() {
 
@@ -59,17 +65,16 @@ public class EmployeeUI extends UI {
 		}
 	});
 
-	private Button edit = new MButton(FontAwesome.PENCIL_SQUARE_O,
+	private Button edit = new MButton(FontAwesome.PENCIL_SQUARE_O, new ClickListener() {
+
+		@Override
+		public void buttonClick(ClickEvent e) {
+			edit(e);
+
+		}
+	});
+	private Button delete = new ConfirmButton(FontAwesome.TRASH_O, "Do you really want to delete this entry?",
 			new ClickListener() {
-
-				@Override
-				public void buttonClick(ClickEvent e) {
-					edit(e);
-
-				}
-			});
-	private Button delete = new ConfirmButton(FontAwesome.TRASH_O,
-			"Do you really want to delete this entry?", new ClickListener() {
 
 				@Override
 				public void buttonClick(ClickEvent e) {
@@ -80,9 +85,18 @@ public class EmployeeUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-		setContent(new MVerticalLayout(new MHorizontalLayout(addNew, edit,
-				delete), list).expand(list));
+		setContent(new MVerticalLayout(txtfILTERByFirstname, new MHorizontalLayout(addNew, edit, delete), list)
+				.expand(list));
 		listEntities();
+
+		txtfILTERByFirstname.addTextChangeListener(new TextChangeListener() {
+			public void textChange(TextChangeEvent event) {
+				String firstname = event.getText();
+
+				listEntitiesByFirstname(firstname);
+			}
+		});
+
 		list.addMValueChangeListener(new MValueChangeListener<Employee>() {
 
 			@Override
@@ -118,7 +132,22 @@ public class EmployeeUI extends UI {
 
 	private void listEntities() {
 
+		// find all using repository
 		list.setBeans(repo.findAll());
+
+		adjustActionButtonState();
+
+	}
+
+	private void listEntitiesByFirstname(String firstname) {
+
+		QEmployee qEmployee = QEmployee.employee;
+		BooleanExpression expression = qEmployee.firstname.containsIgnoreCase(firstname);
+
+		// find all using repository and the expression
+		Iterable<Employee> results = repo.findAll(expression);
+
+		list.setBeans(Lists.newArrayList(results));
 
 		adjustActionButtonState();
 

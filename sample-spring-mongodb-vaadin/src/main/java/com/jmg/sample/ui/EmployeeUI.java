@@ -49,7 +49,7 @@ public class EmployeeUI extends UI {
 	@Inject
 	private EmployeeRepository repo;
 
-	private TextField txtfILTERByFirstname = new MTextField("Filter by firstname:");
+	private TextField txtFilterByFirstname = new MTextField("Filter by firstname:");
 
 	private MTable<Employee> list = new MTable<>(Employee.class)
 			.withProperties("id", "firstname", "lastname", "birthDate", "gender")
@@ -85,15 +85,15 @@ public class EmployeeUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-		setContent(new MVerticalLayout(txtfILTERByFirstname, new MHorizontalLayout(addNew, edit, delete), list)
+		setContent(new MVerticalLayout(txtFilterByFirstname, new MHorizontalLayout(addNew, edit, delete), list)
 				.expand(list));
 		listEntities();
 
-		txtfILTERByFirstname.addTextChangeListener(new TextChangeListener() {
+		txtFilterByFirstname.addTextChangeListener(new TextChangeListener() {
 			public void textChange(TextChangeEvent event) {
 				String firstname = event.getText();
 
-				listEntitiesByFirstname(firstname);
+				filterEntitiesByFirstname(firstname);
 			}
 		});
 
@@ -139,7 +139,7 @@ public class EmployeeUI extends UI {
 
 	}
 
-	private void listEntitiesByFirstname(String firstname) {
+	private void filterEntitiesByFirstname(String firstname) {
 
 		QEmployee qEmployee = QEmployee.employee;
 		BooleanExpression expression = qEmployee.firstname.containsIgnoreCase(firstname);

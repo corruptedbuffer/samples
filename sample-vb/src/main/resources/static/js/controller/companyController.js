@@ -12,7 +12,6 @@ app.controller('CompanyController', [ '$scope', '$compile', 'notifications', 'ng
 	that.reset = function (){
 				
 		that.company = {
-				id: null,
 				name : null,
 				address : null,
 				city : null,

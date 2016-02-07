@@ -20,24 +20,14 @@
 
 	<div class="main-container" ng-controller="CompanyController as ctrl">
 
-
-		<script type="text/ng-template" id="templateBeneficialOwner">
-
-        <div id="target" ng-click="test()" ng-controller="tt">
-          Click here
-        </div>
-	    </script>
-
 		<div class="panel panel-default">
 
 			<div class="panel-heading">
-				<span class="lead">Company</span>
+				<span class="lead">Company Edition</span>
 			</div>
 
 			<div class="formcontainer">
 				<form id="companyForm" name="companyForm" class="form-horizontal" ng-submit="ctrl.save()">
-
-					<input type="hidden" ng-model="ctrl.user.id" />
 
 					<div class="form-group">
 						<label for="name" class="col-md-1 control-label">Name</label>
@@ -110,7 +100,7 @@
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
 			<div class="panel-heading">
-				<span class="lead">List</span>
+				<span class="lead">List of Companies</span>
 			</div>
 
 			<div class="table-container">
@@ -142,6 +132,6 @@
 
 	<script type="text/javascript" src="/js/controller/companyController.js"></script>
 	<script type="text/javascript" src="/js/controller/beneficialOwnerController.js"></script>
-	
+
 </body>
 </html>

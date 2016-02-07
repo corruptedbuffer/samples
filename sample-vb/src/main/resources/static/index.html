@@ -5,13 +5,15 @@
 <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
 <link rel="stylesheet" href="/bower_components/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css"></link>
 
-<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
-
+<link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css"></link>
+<link rel="stylesheet" href="/bower_components/ng-notifications-bar/css/ngNotificationsBar.css"></link>
 
 <link rel="stylesheet" href="/css/app.css"></link>
 
 </head>
 <body ng-app="app" class="ng-cloak">
+
+	<notifications-bar class="notifications"></notifications-bar>
 
 	<div class="main-container" ng-controller="CompanyController as ctrl">
 		<div class="panel panel-default">
@@ -21,59 +23,69 @@
 			</div>
 
 			<div class="formcontainer">
-				<form name="form" ng-submit="ctrl.save()">
+				<form id="companyForm" name="companyForm" class="form-horizontal" ng-submit="ctrl.save()">
 
 					<input type="hidden" ng-model="ctrl.user.id" />
 
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label for="name">Name</label>
+					<div class="form-group">
+						<label for="name" class="col-md-1 control-label">Name</label>
+						<span class="label bg-red" ng-show="!companyForm.name.$pristine && companyForm.name.$error.required" ng-bind="'required'"></span>
+
+						<div class="col-md-9">
 							<input name="name" type="text" class="form-control input-sm" placeholder="Name" required="required" ng-model="ctrl.company.name" />
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label for="address">Address</label>
+					<div class="form-group">
+						<label for="address" class="col-md-1 control-label">Address</label>
+						<span class="label bg-red" ng-show="!companyForm.address.$pristine && companyForm.address.$error.required" ng-bind="'required'"></span>
+
+						<div class="col-md-9">
 							<input name="address" type="text" class="form-control input-sm" placeholder="Address" required="required" ng-model="ctrl.company.address" />
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label for="city">City</label>
+					<div class="form-group">
+						<label for="city" class="col-md-1 control-label">City</label>
+						<span class="label bg-red" ng-show="!companyForm.city.$pristine && companyForm.city.$error.required" ng-bind="'required'"></span>
+
+						<div class="col-md-9">
 							<input name="city" type="text" class="form-control input-sm" placeholder="City" required="required" ng-model="ctrl.company.city" />
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label for="country">Country</label>
+					<div class="form-group">
+						<label for="country" class="col-md-1 control-label">Country</label>
+						<span class="label bg-red" ng-show="!companyForm.country.$pristine && companyForm.country.$error.required" ng-bind="'required'"></span>
+
+						<div class="col-md-9">
 							<input name="country" type="text" class="form-control input-sm" placeholder="Country" required="required" ng-model="ctrl.company.country" />
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label for="phoneNumber">Email</label>
-							<input name="phoneNumber" type="text" class="form-control input-sm" placeholder="Country" ng-model="ctrl.company.email" />
+					<div class="form-group">
+						<label for="email" class="col-md-1 control-label">Email</label>
+						<span class="label bg-red" ng-show="!companyForm.email.$pristine && companyForm.email.$error.email" ng-bind="'invalid email'"></span>
+
+						<div class="col-md-9">
+							<input name="email" type="email" class="form-control input-sm" placeholder="Email" ng-model="ctrl.company.email" />
 						</div>
 					</div>
 
-					<div class="row">
-						<div class="form-group col-md-12">
-							<label for="phoneNumber">Phone number</label>
-							<input name="phoneNumber" type="text" class="form-control input-sm" placeholder="Country" ng-model="ctrl.company.phoneNumber" />
+					<div class="form-group">
+						<label for="phoneNumber" class="col-md-1 control-label">Phone</label>
+						<div class="col-md-9">
+							<input name="phoneNumber" type="tel" class="form-control input-sm" placeholder="Phone number" ng-model="ctrl.company.phoneNumber" />
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="form-actions floatRight">
-							<button type="submit" class="btn btn-primary btn-sm" ng-disabled="form.$invalid">
+							<button type="submit" class="btn btn-primary btn-sm" ng-disabled="companyForm.$invalid">
 								<span ng-bind="!ctrl.company.id ? 'Create' : 'Update'"></span>
 							</button>
 
-							<button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="myForm.$pristine">
+							<button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="companyForm.$pristine">
 								<span ng-bind="'Reset'"></span>
 							</button>
 						</div>
@@ -104,8 +116,11 @@
 	<script type="text/javascript" src="/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 
 	<script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 	<script type="text/javascript" src="/bower_components/angular-datatables/dist/angular-datatables.min.js"></script>
 	<script type="text/javascript" src="/bower_components/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="/bower_components/ng-notifications-bar/dist/ngNotificationsBar.min.js"></script>
 
 	<script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 

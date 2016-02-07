@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('CompanyController', [ '$scope', '$compile', 'DTColumnBuilder', 'DTOptionsBuilder', 'CompanyService', // 
-                                      function($scope, $compile, DTColumnBuilder, DTOptionsBuilder, companyService) {
+app.controller('CompanyController', [ '$scope', '$compile', 'notifications', 'DTColumnBuilder', 'DTOptionsBuilder', 'CompanyService', // 
+                                      function($scope, $compile, notifications, DTColumnBuilder, DTOptionsBuilder, companyService) {
 	var that = this;
 
 	that.companies = [];
@@ -11,6 +11,7 @@ app.controller('CompanyController', [ '$scope', '$compile', 'DTColumnBuilder', '
 	
 	that.reset = function (){
 		
+		
 		that.company = {
 				id: null,
 				name : null,
@@ -19,31 +20,44 @@ app.controller('CompanyController', [ '$scope', '$compile', 'DTColumnBuilder', '
 				country : null,
 				email : null,
 				phoneNumber : null,	
-			};				
+		};
+		
+		if($scope.companyForm){
+			$scope.companyForm.$setPristine();
+		}
+		
 	}
 	
 	that.reset();
 		
 	that.create = function(company) {
+						
 		companyService.create(company).then(function (success){
 			
+            notifications.showSuccess('Company created');
+
 			// reload table and pagination/ sorting
 			var order = that.vm.dtOptions.order;
 	        that.vm.dtInstance.dataTable.fnSort(order);
 	        
 		}, function(errResponse) {
+			notifications.showError('Error creating company. Please try again...');
 		});
 	};
 
 	that.update = function(company) {
-		companyService.update(company).then(function (success){			
+		companyService.update(company).then(function (success){
+            notifications.showSuccess('Company updated');
 		}, function(errResponse) {
+			notifications.showError('Error updating company. Please try again...');
 		});
 	};
 
 	that.delete = function(id) {
 		
 		companyService.delete(id).then(function (success){
+			
+            notifications.showSuccess('Company deleted');
 			
 			// if editing the company we just removed
 			if (that.company.id == id){
@@ -52,7 +66,8 @@ app.controller('CompanyController', [ '$scope', '$compile', 'DTColumnBuilder', '
 			}
 			
 			// all of this is to send a refresh request for the same page we are
-			// I have not found any easier way to send a refresh request and maintain
+			// I have not found any easier way to send a refresh request and
+			// maintain
 			// the page/ sort criteria
 			
 			var currentPage = that.currentPage.number;
@@ -72,6 +87,7 @@ app.controller('CompanyController', [ '$scope', '$compile', 'DTColumnBuilder', '
 			// // reload table with current pagination/ sorting
 			that.vm.dtInstance.dataTable.fnPageChange(currentPage, currentPage);
 		}, function(errResponse) {
+			notifications.showError('Error deleting company. Please try again...');
 		});
 	};
 

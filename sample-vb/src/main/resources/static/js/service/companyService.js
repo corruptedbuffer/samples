@@ -3,17 +3,6 @@
 app.factory('CompanyService', ['$http', '$q', function($http, $q){
 	
 	var url = '/api/companies';
-	
-	function thenInternal(){
-		return {
-			function(response){
-				return response.data;
-			}, 
-			function(errResponse){
-				return $q.reject(errResponse);
-			}			
-		}
-	}
 
 	return {
 		
@@ -28,19 +17,38 @@ app.factory('CompanyService', ['$http', '$q', function($http, $q){
 						pageParam += '&sort=id,desc';	
 					}
 				
-					return $http.get(url + pageParam).then(thenInternal());
+					return $http.get(url + pageParam);
 			},
-		    
+							    
 		    create: function(user){
-					return $http.post(url, user).then(thenInternal());
+					return $http.post(url, user);
 		    },
 		    
 		    update: function(company){
-					return $http.put(url +'/'+ company.id, company).then(thenInternal());
+					return $http.put(url +'/'+ company.id, company);
 			},
 		    
 			delete: function(id){
-					return $http.delete(url +'/'+ id).then(thenInternal());
-			}		
+					return $http.delete(url +'/'+ id);
+			},
+			
+			findBeneficialOwners: function(id) {			
+				return $http.get(url + '/' + id +'/beneficialOwners');
+			},				
+			
+			addBeneficialOwner: function(id, urlBeneficialOwner){
+				return $http({
+				    url: url +'/'+ id + '/beneficialOwners',
+				    method: 'POST',
+				    data: urlBeneficialOwner,
+				    headers: {
+				        "Content-Type": "text/uri-list"
+				    }					
+				});
+			},
+			
+			deleteBeneficialOwner: function(id, beneficialOwner){
+				return $http.delete(url +'/'+ id + '/beneficialOwners/' + beneficialOwner.id);
+			}						
 	};
 }]);

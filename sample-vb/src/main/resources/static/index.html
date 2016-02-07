@@ -1,12 +1,15 @@
 <html>
 <head>
-<title>VB Example</title>
+<title>Sample VB</title>
 
 <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
 <link rel="stylesheet" href="/bower_components/angular-datatables/dist/plugins/bootstrap/datatables.bootstrap.min.css"></link>
 
 <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css"></link>
 <link rel="stylesheet" href="/bower_components/ng-notifications-bar/css/ngNotificationsBar.css"></link>
+
+<link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.min.css"></link>
+<link rel="stylesheet" href="/bower_components/ng-dialog/css/ngDialog-theme-default.min.css"></link>
 
 <link rel="stylesheet" href="/css/app.css"></link>
 
@@ -16,6 +19,15 @@
 	<notifications-bar class="notifications"></notifications-bar>
 
 	<div class="main-container" ng-controller="CompanyController as ctrl">
+
+
+		<script type="text/ng-template" id="templateBeneficialOwner">
+
+        <div id="target" ng-click="test()" ng-controller="tt">
+          Click here
+        </div>
+	    </script>
+
 		<div class="panel panel-default">
 
 			<div class="panel-heading">
@@ -80,21 +92,20 @@
 					</div>
 
 					<div class="row">
-						<div class="form-actions floatRight">
-							<button type="submit" class="btn btn-primary btn-sm" ng-disabled="companyForm.$invalid">
+						<div class="col-md-2 col-md-offset-5">
+							<button type="submit" class="btn btn-primary" ng-disabled="companyForm.$invalid " title="{{!ctrl.company.id ? 'Create' : 'Update'}} company">
 								<span ng-bind="!ctrl.company.id ? 'Create' : 'Update'"></span>
 							</button>
 
-							<button type="button" ng-click="ctrl.reset()" class="btn btn-warning btn-sm" ng-disabled="companyForm.$pristine">
+							<button type="button" class="btn btn-default" title="Reset form" ng-click="ctrl.reset()">
 								<span ng-bind="'Reset'"></span>
 							</button>
 						</div>
 					</div>
+
 				</form>
 			</div>
 		</div>
-
-
 
 		<div class="panel panel-default">
 			<!-- Default panel contents -->
@@ -121,12 +132,16 @@
 	<script type="text/javascript" src="/bower_components/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.min.js"></script>
 
 	<script type="text/javascript" src="/bower_components/ng-notifications-bar/dist/ngNotificationsBar.min.js"></script>
+	<script type="text/javascript" src="bower_components/ng-dialog/js/ngDialog.min.js"></script>
 
 	<script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript" src="/js/app.js"></script>
-
 	<script type="text/javascript" src="/js/service/companyService.js"></script>
+	<script type="text/javascript" src="/js/service/personService.js"></script>
+
 	<script type="text/javascript" src="/js/controller/companyController.js"></script>
+	<script type="text/javascript" src="/js/controller/beneficialOwnerController.js"></script>
+	
 </body>
 </html>

@@ -18,7 +18,8 @@
     "bootstrap": "~3.3.6",
     "font-awesome": "~4.5.0",
     "jquery-ui": ">=1.11.4",
-	"ng-notifications-bar": ">=0.0.15"    
+    "ng-notifications-bar": ">=0.0.15",
+    "ng-dialog": "~0.5.6"
   },
   "main": "",
   "moduleType": [],

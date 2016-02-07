@@ -15,3 +15,20 @@ INSERT INTO `person` (id, first_name, last_name, created_date) VALUES (1, 'Javie
 INSERT INTO `person` (id, first_name, last_name, created_date) VALUES (2, 'John' , 'Smith', now());
 INSERT INTO `person` (id, first_name, last_name, created_date) VALUES (3, 'Adam' , 'White', now());
 INSERT INTO `person` (id, first_name, last_name, created_date) VALUES (4, 'Lore' , 'Ipsum', now());
+INSERT INTO `person` (id, first_name, last_name, created_date) VALUES (5, 'Peter' , 'Nelson', now());
+
+
+INSERT INTO `company_beneficial_owner` (company_id, beneficial_owner_id) VALUES (1, 1);
+INSERT INTO `company_beneficial_owner` (company_id, beneficial_owner_id) VALUES (1, 2);
+INSERT INTO `company_beneficial_owner` (company_id, beneficial_owner_id) VALUES (2, 2);
+INSERT INTO `company_beneficial_owner` (company_id, beneficial_owner_id) VALUES (3, 3);
+INSERT INTO `company_beneficial_owner` (company_id, beneficial_owner_id) VALUES (4, 4);
+INSERT INTO `company_beneficial_owner` (company_id, beneficial_owner_id) VALUES (5, 5);
+INSERT INTO `company_beneficial_owner` (company_id, beneficial_owner_id) VALUES (6, 5);
+INSERT INTO `company_beneficial_owner` (company_id, beneficial_owner_id) VALUES (10, 5);
+INSERT INTO `company_beneficial_owner` (company_id, beneficial_owner_id) VALUES (11, 5);
+INSERT INTO `company_beneficial_owner` (company_id, beneficial_owner_id) VALUES (11, 2);
+INSERT INTO `company_beneficial_owner` (company_id, beneficial_owner_id) VALUES (12, 5);
+INSERT INTO `company_beneficial_owner` (company_id, beneficial_owner_id) VALUES (12, 1);
+
+

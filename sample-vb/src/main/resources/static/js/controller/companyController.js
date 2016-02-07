@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('CompanyController', [ '$scope', '$compile', 'notifications', 'DTColumnBuilder', 'DTOptionsBuilder', 'CompanyService', // 
-                                      function($scope, $compile, notifications, DTColumnBuilder, DTOptionsBuilder, companyService) {
+app.controller('CompanyController', [ '$scope', '$compile', 'notifications', 'ngDialog', 'DTColumnBuilder', 'DTOptionsBuilder', 'CompanyService', // 
+                                      function($scope, $compile, notifications, ngDialog, DTColumnBuilder, DTOptionsBuilder, companyService) {
 	var that = this;
 
 	that.companies = [];
@@ -10,8 +10,7 @@ app.controller('CompanyController', [ '$scope', '$compile', 'notifications', 'DT
 	// services
 	
 	that.reset = function (){
-		
-		
+				
 		that.company = {
 				id: null,
 				name : null,
@@ -105,10 +104,17 @@ app.controller('CompanyController', [ '$scope', '$compile', 'notifications', 'DT
 			return company.id == id;
 		}).shift();		
 	};
-
-	that.remove = function(id) {		
-		that.delete(id);
-	};
+		
+	that.loadBeneficialOwners = function (id){
+		
+		$scope.companyId = id;
+		
+		ngDialog.open({ 
+			template: 'beneficialOwner.html',
+			scope: $scope
+		});
+	}
+	
 		
 	//
 	// datatables
@@ -127,8 +133,9 @@ app.controller('CompanyController', [ '$scope', '$compile', 'notifications', 'DT
         	
         	var companyId = data.id;
         	
-            return '<button type="input" class="btn btn-sm btn-default" ng-click="ctrl.load('+ companyId +')"><i class="fa fa-pencil"></i></button> ' +  
-            '<button type="input" class="btn btn-sm btn-danger" ng-click="ctrl.delete('+ companyId +')"><i class="fa fa-trash-o"></i></button>';
+            return '<a title="View" class="btn btn-sm btn-default" ng-click="$event.preventDefault(); ctrl.load('+ companyId +')"><i class="fa fa-eye"></i></a> ' +
+            '<a title="Manage beneficial owners" class="btn btn-sm btn-default" ng-click="$event.preventDefault(); ctrl.loadBeneficialOwners('+ companyId +')"><i class="fa fa-user"></i></a> ' +
+            '<a title="Delete" class="btn btn-sm btn-danger" ng-click="$event.preventDefault(); ctrl.delete('+ companyId +')"><i class="fa fa-trash-o"></i></a>';
         })
     ];
 	

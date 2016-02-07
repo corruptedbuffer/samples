@@ -43,9 +43,13 @@ app.controller('CompanyController', [ '$scope', '$compile', 'notifications', 'ng
 		});
 	};
 
-	that.update = function(company) {
-		companyService.update(company).then(function (success){
-            notifications.showSuccess('Company updated');
+	that.update = function(companyToUpdate) {
+		companyService.update(companyToUpdate).then(function (success){
+			
+			notifications.showSuccess('Company updated');
+
+			that.vm.dtInstance.dataTable.fnStandingRedraw();
+			
 		}, function(errResponse) {
 			notifications.showError('Error updating company. Please try again...');
 		});
@@ -62,7 +66,7 @@ app.controller('CompanyController', [ '$scope', '$compile', 'notifications', 'ng
 				// reset the form
 				that.reset()	
 			}
-			
+						
 			// all of this is to send a refresh request for the same page we are
 			// I have not found any easier way to send a refresh request and
 			// maintain
@@ -71,20 +75,18 @@ app.controller('CompanyController', [ '$scope', '$compile', 'notifications', 'ng
 			var currentPage = that.currentPage.number;
 			
 			// if in first page or there are not more elements in the table
-			if (currentPage == 0 || (currentPage == 1 && that.companies.length == 1)){
-				that.vm.dtInstance.dataTable.fnDraw();
+			if (that.companies.length > 1){
+				that.vm.dtInstance.dataTable.fnStandingRedraw();
 				return;
 			}
 			
-			// if there are not more elements in the table
-			if (that.companies.length == 1){
-				that.vm.dtInstance.dataTable.fnPageChange(currentPage -1, currentPage -1);				
-				return;
+			if (currentPage == 1){
+				that.vm.dtInstance.dataTable.fnDraw();
+			} else {
+				that.vm.dtInstance.dataTable.fnPageChange(currentPage -1, currentPage -1);	
 			}
-						
-			// // reload table with current pagination/ sorting
-			that.vm.dtInstance.dataTable.fnPageChange(currentPage, currentPage);
-		}, function(errResponse) {
+
+			}, function(errResponse) {
 			notifications.showError('Error deleting company. Please try again...');
 		});
 	};

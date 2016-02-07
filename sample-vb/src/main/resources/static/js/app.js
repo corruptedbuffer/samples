@@ -5,6 +5,6 @@ var app = angular.module('app', [ 'datatables', 'datatables.bootstrap', 'ngNotif
 app.config([ 'notificationsConfigProvider', function(notificationsConfigProvider) {
 
 	notificationsConfigProvider.setAutoHide(true);
-	notificationsConfigProvider.setHideDelay(1500);
+	notificationsConfigProvider.setHideDelay(1000);
 	notificationsConfigProvider.setAcceptHTML(true);
 } ]);

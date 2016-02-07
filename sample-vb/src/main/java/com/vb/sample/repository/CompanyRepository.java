@@ -13,7 +13,7 @@ import com.vb.sample.model.Company;
  * @author javi-more-garc
  *
  */
-@RepositoryRestResource(collectionResourceRel = "company", path = "companies")
+@RepositoryRestResource(collectionResourceRel = "companies", path = "companies")
 public interface CompanyRepository extends PagingAndSortingRepository<Company, Long> {
 
 }

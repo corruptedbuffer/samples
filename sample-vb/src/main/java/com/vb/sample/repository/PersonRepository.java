@@ -13,7 +13,7 @@ import com.vb.sample.model.Person;
  * @author javi-more-garc
  *
  */
-@RepositoryRestResource(collectionResourceRel = "person", path = "people")
+@RepositoryRestResource(collectionResourceRel = "people", path = "people")
 public interface PersonRepository extends PagingAndSortingRepository<Person, Long> {
 
 }

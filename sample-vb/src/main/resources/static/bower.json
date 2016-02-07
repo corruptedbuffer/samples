@@ -1,0 +1,28 @@
+{
+  "name": "sample-vb",
+  "version": "0.0.1",
+  "authors": [
+    "Javier Moreno Garcia"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-datatables": ">=0.5.3",
+    "angular-sanitize": ">=1.3.12",
+    "bootstrap": "~3.3.6",
+    "jquery-ui": ">=1.11.4",
+    "font-awesome": "~4.5.0"
+  },
+  "main": "",
+  "moduleType": [],
+  "private": true,
+  "resolutions": {
+    "angular": "^1.4.0"
+  }
+}
